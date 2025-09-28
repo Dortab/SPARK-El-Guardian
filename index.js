@@ -35,9 +35,10 @@ if (startMissionBtn) {
         const userName = usernameInput.value || 'Cadete';
         localStorage.setItem('userName', userName);
         
-        playSparkVoice('bienvenido.mp3');
+        playSparkVoice('audios.bienvenida.mp3');
         
         // Redirigir a la página principal (menú)
         window.location.href = 'bienvenida.html';
     });
+
 }
