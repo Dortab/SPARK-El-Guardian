@@ -6,7 +6,6 @@ body {
     overflow: hidden;
 }
 
-/* Flexbox para centrar todo el contenido */
 .screen {
     position: absolute;
     top: 0;
@@ -30,14 +29,13 @@ body {
     display: none;
 }
 
-/* Fondo Estrellas */
 .background-stars, .universe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('Imagenes/universo.jpg') repeat;
+    background: url('imagenes/universo.jpg') repeat;
     background-size: cover;
     animation: moveStars 100s linear infinite;
 }
@@ -47,7 +45,6 @@ body {
     to { background-position: 100% 100%; }
 }
 
-/* Estilos de la Página de Inicio */
 #home-screen .spark-container {
     position: relative;
     z-index: 2;
@@ -97,7 +94,6 @@ button:hover {
     background-color: #3e6bbd;
 }
 
-/* Estilos del Menú */
 #menu-screen .menu-content {
     display: flex;
     flex-direction: column;
@@ -159,23 +155,79 @@ button:hover {
     line-height: 1.4;
 }
 
-.missions-container {
+/* --- ESTILOS PARA EL CAMINO DE MISIONES --- */
+.missions-path {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    position: relative;
     z-index: 4;
 }
 
 .mission-planet {
-    background: #3e4b7b;
-    border: 2px solid #fff;
+    background: rgba(4, 13, 36, 0.7);
+    border: 2px solid #8e44ad;
     padding: 15px 30px;
-    border-radius: 50px;
-    margin-top: 30px;
+    border-radius: 30px;
+    margin: 15px 0;
     font-size: 1.2rem;
-    position: relative;
-    max-width: 300px;
+    text-decoration: none;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 15px rgba(142, 68, 173, 0.6);
+    transition: all 0.3s ease;
     width: 100%;
+    max-width: 350px;
+    position: relative;
 }
 
-/* Estilos de la Pantalla de Viaje */
+.mission-planet:hover {
+    background-color: rgba(142, 68, 173, 0.9);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 5px 20px rgba(142, 68, 173, 0.8);
+}
+
+@media (min-width: 768px) {
+    .missions-path {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 1200px;
+    }
+
+    .mission-planet {
+        margin: 20px;
+        min-width: 250px;
+        max-width: 300px;
+    }
+
+    .path-node-1 { transform: rotate(-5deg); }
+    .path-node-2 { transform: rotate(5deg); margin-top: 40px; }
+    .path-node-3 { transform: rotate(-3deg); margin-top: -20px; }
+    .path-node-4 { transform: rotate(7deg); margin-top: 30px; }
+    .path-node-5 { transform: rotate(-6deg); }
+}
+
+.back-to-menu-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #3e4b7b;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    z-index: 20;
+    transition: background-color 0.3s;
+}
+
+.back-to-menu-btn:hover {
+    background-color: #5a91f8;
+}
+
 #travel-screen {
     flex-direction: column;
 }
@@ -192,7 +244,7 @@ button:hover {
 .traveling-spaceship {
     width: 450px;
     height: 450px;
-    background: url('Imagenes/nave_espacial.jpeg') no-repeat center;
+    background: url('imagenes/nave_espacial.jpeg') no-repeat center;
     background-size: contain;
     position: absolute;
     top: 50%;
@@ -207,16 +259,18 @@ button:hover {
     to { left: 100%; opacity: 0; }
 }
 
-/* Estilos de la Sección de Juego - Interior de la Nave */
+/* --- ESTILOS PARA LAS PÁGINAS DE MISIONES (YA EXISTENTES) --- */
 #game-screen {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .cockpit-interior {
     width: 100%;
     height: 100%;
     position: relative;
-    background: url('Imagenes/Interior_nave.jpg') no-repeat center center;
+    background: url('imagenes/Interior_nave.jpg') no-repeat center center;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -226,17 +280,52 @@ button:hover {
 
 .control-panel {
     background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    box-sizing: border-box;
+    border: 2px solid #5a91f8;
+    box-shadow: 0 0 25px rgba(90, 145, 248, 0.8);
+    padding: 30px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 40px;
+}
+
+.mission-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #8aff8a;
+    text-shadow: 0 0 10px #8aff8a;
+    margin-bottom: 25px;
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+.problem-display {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #2a8f9a;
+    padding: 20px;
+    border-radius: 10px;
     width: 100%;
     margin-bottom: 20px;
 }
 
-.control-panel .problem-display {
-    margin-bottom: 15px;
+#problem-text {
+    font-size: 1.2em;
+    color: #b3e0ff;
+}
+
+#problem-math {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 5px #fff;
+    margin-top: 10px;
 }
 
 .input-area {
@@ -244,21 +333,49 @@ button:hover {
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 250px; /* Ancho máximo para el área de input */
+    max-width: 300px;
+    margin-top: 20px;
 }
 
 .input-area input {
-    width: 80px;
+    background: rgba(4, 13, 36, 0.7);
+    border: 1px solid #5a91f8;
+    color: #fff;
     text-align: center;
-    flex-grow: 1;
+    font-size: 1.5rem;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.input-area input:focus {
+    outline: none;
+    border-color: #8aff8a;
+    box-shadow: 0 0 10px #8aff8a;
 }
 
 .input-area span {
-    font-size: 2em;
-    margin: 0 10px;
+    font-size: 2.5em;
+    margin: 0 15px;
 }
 
-/* Pop-up de Ayuda */
+#submit-answer-btn {
+    background: linear-gradient(145deg, #5a91f8, #3e6bbd);
+    border: 2px solid #3e6bbd;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+#submit-answer-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(145deg, #3e6bbd, #5a91f8);
+}
+
+/* --- ESTILOS PARA EL POPUP DE AYUDA (EXISTENTE) --- */
 .popup {
     position: fixed;
     top: 0;
@@ -270,10 +387,14 @@ button:hover {
     justify-content: center;
     align-items: center;
     z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.popup.hidden {
-    display: none;
+.popup.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 .popup-content {
@@ -283,6 +404,12 @@ button:hover {
     border-radius: 20px;
     max-width: 600px;
     text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.popup.active .popup-content {
+    transform: scale(1);
 }
 
 .popup-content img {
@@ -290,8 +417,139 @@ button:hover {
     margin-bottom: 20px;
 }
 
+/* --- NUEVOS ESTILOS PARA LAS ALERTAS PERSONALIZADAS --- */
+.spark-alert-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 30; /* Asegura que esté por encima de todo */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.spark-alert-popup.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.spark-alert-content {
+    background: linear-gradient(135deg, #1a2a4a, #0e1a3a); /* Fondo degradado */
+    padding: 35px 40px;
+    border-radius: 20px;
+    max-width: 450px;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    position: relative; /* Para el icono */
+}
+
+.spark-alert-popup.active .spark-alert-content {
+    transform: scale(1);
+}
+
+/* Estilos específicos para la alerta CORRECTA */
+.spark-alert-content.correct {
+    border: 3px solid #4CAF50; /* Borde verde */
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.7); /* Sombra verde */
+}
+
+/* Estilos específicos para la alerta INCORRECTA */
+.spark-alert-content.incorrect {
+    border: 3px solid #F44336; /* Borde rojo */
+    box-shadow: 0 0 30px rgba(244, 67, 54, 0.7); /* Sombra roja */
+}
+
+.spark-alert-content img {
+    width: 100px; /* Tamaño del avatar de SPARK */
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 2px solid #5a91f8;
+}
+
+.spark-alert-content h3 {
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.spark-alert-content p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #c9d6e5;
+    margin-bottom: 25px;
+}
+
+/* Iconos de estado (check/cross) */
+.spark-alert-icon {
+    font-size: 3em;
+    position: absolute;
+    top: -20px; /* Posiciona el icono fuera del cuadro */
+    right: -20px;
+    background: #0e1a3a;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.spark-alert-content.correct .spark-alert-icon {
+    color: #4CAF50; /* Color del icono verde */
+    border: 2px solid #4CAF50;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+}
+
+.spark-alert-content.incorrect .spark-alert-icon {
+    color: #F44336; /* Color del icono rojo */
+    border: 2px solid #F44336;
+    box-shadow: 0 0 20px rgba(244, 67, 54, 0.8);
+}
+
+
+.spark-alert-content button {
+    background: linear-gradient(145deg, #5a91f8, #3e6bbd);
+    border: 2px solid #3e6bbd;
+    font-size: 1.1em;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 200px;
+    margin: 0 auto; /* Centrar el botón */
+    display: block; /* Para que margin: auto funcione */
+}
+
+.spark-alert-content button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(145deg, #3e6bbd, #5a91f8);
+}
+
+
 @media (max-width: 767px) {
-    .cockpit-interior {
-        justify-content: center;
+    .control-panel {
+        width: 95%;
+        padding: 20px;
+    }
+    .spark-alert-content {
+        max-width: 90%;
+        padding: 25px;
+    }
+    .spark-alert-icon {
+        top: -15px;
+        right: -15px;
+        width: 50px;
+        height: 50px;
+        font-size: 2.5em;
     }
 }
