@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión: Fracciones - SPARK</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="mision-page">
+
+    <audio id="background-music" src="audios/musica_fondo.mp3" preload="auto" loop></audio>
+
+    <a href="bienvenida.html" class="back-to-menu-btn">Regresar al Menú</a>
+
+    <div id="travel-screen" class="screen active">
+        <div class="universe"></div>
+        <div class="traveling-spaceship"></div>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+        <div class="cockpit-interior">
+            <div class="control-panel">
+                <div class="problem-display">
+                    <p id="problem-text">Misión: Resuelve la siguiente operación para avanzar.</p>
+                    <div id="problem-math"></div>
+                </div>
+                <div class="input-area">
+                    <input type="text" id="numerator-input" placeholder="Numerador">
+                    <span>/</span>
+                    <input type="text" id="denominator-input" placeholder="Denominador">
+                </div>
+                <button id="submit-answer-btn">Resolver</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="help-popup" class="popup hidden">
+        <div class="popup-content">
+            <img src="imagenes/spark.jpeg" alt="SPARK Holograma">
+            <h3 id="help-title"></h3>
+            <p id="help-explanation"></p>
+            <a id="youtube-link" href="#" target="_blank">Ver Transmisión de Refuerzo</a>
+            <button id="close-popup-btn">Continuar Misión</button>
+        </div>
+    </div>
+
+    <script src="bienvenida.js"></script>
+</body>
+</html>

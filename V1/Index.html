@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPARK, El Guardián del Conocimiento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="loading-screen" class="screen active">
+        <div class="loader"></div>
+        <p>Cargando misión...</p>
+    </div>
+
+    <div id="home-screen" class="screen hidden">
+        <div class="background-stars"></div>
+        <div class="spark-container">
+            <img src="spark.png" alt="SPARK, el robot tutor">
+            <div class="dialog-box">
+                <p>¡Hola, Cadete! La Nebulosa de las Matemáticas te necesita. Antes de empezar nuestra misión, dime tu nombre.</p>
+                <input type="text" id="username-input" placeholder="Tu nombre">
+                <button id="start-mission-btn">Empezar Misión</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-screen" class="screen hidden">
+        <div class="background-stars"></div>
+        <div class="menu-content">
+            <div class="spark-hologram">
+                <p id="menu-message"></p>
+            </div>
+            <div class="spaceship"></div>
+            <div class="missions-container">
+                <button id="fractions-mission-btn" class="mission-planet">Sistema de las Fracciones</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+        <div class="cockpit">
+            <div class="space-view">
+                <div class="stars-game"></div>
+            </div>
+            <div class="cockpit-overlay"></div>
+            <div class="spark-game">
+                </div>
+            <div class="control-panel">
+                <div class="problem-display">
+                    <p id="problem-text">Misión: Resuelve la siguiente operación para avanzar.</p>
+                    <div id="problem-math"></div>
+                </div>
+                <div class="input-area">
+                    <input type="text" id="numerator-input" placeholder="Numerador">
+                    <span>/</span>
+                    <input type="text" id="denominator-input" placeholder="Denominador">
+                </div>
+                <button id="submit-answer-btn">Resolver</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="help-popup" class="popup hidden">
+        <div class="popup-content">
+            <img src="spark-hologram.png" alt="SPARK Holograma">
+            <h3 id="help-title"></h3>
+            <p id="help-explanation"></p>
+            <a id="youtube-link" href="#" target="_blank">Ver Transmisión de Refuerzo</a>
+            <button id="close-popup-btn">Continuar Misión</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

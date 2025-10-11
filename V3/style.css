@@ -1,0 +1,205 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d0c1d;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Estructura de Pantallas */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.screen.active {
+    opacity: 1;
+    z-index: 10;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+/* Fondos Generados por CSS (Mejora de rendimiento) */
+.background-stars, .stars-game {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Genera estrellas con un gradiente CSS en lugar de una imagen */
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+    background-size: 200px 200px;
+    animation: moveStars 100s linear infinite;
+}
+
+.nebula-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Mantener una imagen de nebulosa si es pequeña y optimizada */
+    background: url('assets/images/nebula.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.5;
+    animation: zoomNebula 60s ease-in-out infinite alternate;
+}
+
+@keyframes moveStars {
+    from { background-position: 0 0; }
+    to { background-position: 200% 200%; }
+}
+
+@keyframes zoomNebula {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+
+/* Componentes de UI */
+.dialog-box {
+    background: rgba(14, 25, 49, 0.8);
+    border: 2px solid #5a91f8;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+input, button {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #3e4b7b;
+}
+
+button {
+    background-color: #5a91f8;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #3e6bbd;
+    transform: scale(1.05);
+}
+
+.spark-container img {
+    max-width: 600px;
+}
+
+.spaceship img {
+    width: 150px;
+    height: 150px;
+    animation: floatSpaceship 5s ease-in-out infinite;
+    margin: 50px auto;
+}
+
+.mission-planet {
+    background: rgba(62, 75, 123, 0.7);
+    border: 2px solid #fff;
+    padding: 20px 40px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mission-planet img {
+    width: 40px;
+}
+
+/* Cabina de la nave */
+.cockpit-overlay img {
+    width: 100%;
+    height: 100%;
+}
+
+.spark-game-corner, .spark-popup-hologram {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.spark-popup-hologram {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.spark-game-corner img, .spark-popup-hologram img {
+    width: 100px;
+    animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from { filter: drop-shadow(0 0 5px #5a91f8); }
+    to { filter: drop-shadow(0 0 15px #5a91f8); }
+}
+
+.control-panel {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-area {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input-area input {
+    width: 80px;
+    text-align: center;
+    background-color: #1a2a4a;
+    border: 1px solid #5a91f8;
+}
+
+/* Pop-up de Ayuda Mejorado */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: #1a2a4a;
+    border: 3px solid #5a91f8;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+}

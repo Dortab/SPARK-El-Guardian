@@ -1,0 +1,233 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d0c1d;
+    color: #fff;
+    overflow: hidden;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.screen.active {
+    opacity: 1;
+    z-index: 10;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+/* Fondo Estrellas */
+.background-stars, .stars-game {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('Imagenes/universo.png') repeat; /* [Insertar ruta de la imagen de estrellas aquí] */
+    animation: moveStars 100s linear infinite;
+}
+
+@keyframes moveStars {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+}
+
+/* Estilos de la Página de Inicio */
+#home-screen .spark-container {
+    position: relative;
+    z-index: 2;
+}
+
+#home-screen img {
+    width: 50vw;
+    max-width: 600px;
+}
+
+.dialog-box {
+    background: rgba(14, 25, 49, 0.8);
+    border: 2px solid #5a91f8;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+input, button {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #5a91f8;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #3e6bbd;
+}
+
+/* Estilos del Menú */
+#menu-screen .menu-content {
+    z-index: 2;
+    position: relative;
+}
+
+.spark-hologram-menu {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.spark-hologram-menu img {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.spaceship {
+    width: 150px;
+    height: 150px;
+    background: url('Imagenes/nave.png') no-repeat center center; /* [Insertar ruta de la imagen de la nave espacial aquí] */
+    background-size: contain;
+    animation: floatSpaceship 5s ease-in-out infinite;
+    margin: 50px auto;
+}
+
+@keyframes floatSpaceship {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.mission-planet {
+    background: #3e4b7b;
+    border: 2px solid #fff;
+    padding: 20px 40px;
+    border-radius: 50px;
+    margin: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.mission-planet:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos de la Sección de Juego */
+#game-screen {
+    flex-direction: column;
+}
+
+.cockpit {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.space-view {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+
+.cockpit-overlay {
+    background: url('Imagenes/interior_nave.png') no-repeat center center; /* [Insertar ruta de la imagen de la superposición de la cabina aquí] */
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Permite interactuar con elementos debajo */
+}
+
+.spark-game-corner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.spark-game-corner img {
+    width: 100px;
+}
+
+.control-panel {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.problem-display {
+    margin-bottom: 20px;
+}
+
+.input-area {
+    display: flex;
+    align-items: center;
+}
+
+.input-area input {
+    width: 80px;
+    text-align: center;
+    margin: 0 5px;
+}
+
+/* Pop-up de Ayuda Mejorado */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: #1a2a4a;
+    border: 3px solid #5a91f8;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    text-align: center;
+    position: relative; /* Para posicionar a SPARK dentro */
+}

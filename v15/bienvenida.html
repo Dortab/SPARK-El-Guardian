@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPARK, Menú Principal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <audio id="background-music" src="audios/musica_fondo.mp3" preload="auto" loop></audio>
+
+    <div id="menu-screen" class="screen active">
+        <div class="background-stars"></div>
+        <div class="menu-content">
+            <div class="spark-dialogue">
+                <img src="imagenes/spark.jpeg" alt="SPARK" class="spark-avatar">
+                <div class="dialogue-frame">
+                    <p id="menu-message"></p>
+                </div>
+            </div>
+            
+            <div class="missions-path">
+                <a href="mision-fracciones.html" class="mission-planet path-node-1">Sistema de las Fracciones</a>
+                <a href="mision-sumas.html" class="mission-planet path-node-2">Nebulosa de las Sumas</a>
+                <a href="mision-restas.html" class="mission-planet path-node-3">Cinturón de Asteroides de las Restas</a>
+                <a href="mision-multiplicaciones.html" class="mission-planet path-node-4">Vía Láctea de las Multiplicaciones</a>
+                <a href="mision-divisiones.html" class="mission-planet path-node-5">Estación Espacial de las Divisiones</a>
+            </div>
+
+            <button id="end-mission-btn">Terminar Misión</button>
+
+        </div>
+    </div>
+
+    <script src="bienvenida.js"></script>
+</body>
+</html>

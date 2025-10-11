@@ -1,0 +1,247 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d0c1d;
+    color: #fff;
+    overflow: hidden; /* Para evitar scroll durante la animación */
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.screen.active {
+    opacity: 1;
+    z-index: 10;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+/* Fondo Estrellas */
+.background-stars, .universe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('Imagenes/universo.jpg') repeat;
+    background-size: cover;
+    animation: moveStars 100s linear infinite;
+}
+
+@keyframes moveStars {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+}
+
+/* Estilos de la Página de Inicio */
+#home-screen .spark-container {
+    position: relative;
+    z-index: 2;
+}
+
+#home-screen img {
+    width: 50vw;
+    max-width: 600px;
+}
+
+.dialog-box {
+    background: rgba(14, 25, 49, 0.8);
+    border: 2px solid #5a91f8;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+input, button {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #5a91f8;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #3e6bbd;
+}
+
+/* Estilos del Menú */
+#menu-screen .menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    position: relative;
+}
+
+.spark-dialogue {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    max-width: 80%;
+    margin-top: 40px;
+}
+
+.spark-avatar {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    object-fit: contain;
+    margin-right: 25px;
+    flex-shrink: 0;
+}
+
+.dialogue-frame {
+    background-color: rgba(14, 25, 49, 0.8);
+    border: 2px solid #5a91f8;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.dialogue-frame p {
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+.missions-container {
+    z-index: 4;
+}
+
+.mission-planet {
+    background: #3e4b7b;
+    border: 2px solid #fff;
+    padding: 15px 30px;
+    border-radius: 50px;
+    margin-top: 30px;
+    font-size: 1.2rem;
+    position: relative;
+}
+
+/* Estilos de la Pantalla de Viaje */
+#travel-screen {
+    flex-direction: column;
+}
+
+.universe {
+    animation: drifting 5s linear infinite;
+}
+
+@keyframes drifting {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+}
+
+.traveling-spaceship {
+    width: 450px;
+    height: 450px;
+    background: url('Imagenes/nave_espacial.jpeg') no-repeat center;
+    background-size: contain;
+    position: absolute;
+    top: 50%;
+    left: -450px;
+    transform: translateY(-50%);
+    animation: travel 10s linear forwards;
+}
+
+@keyframes travel {
+    from { left: -450px; opacity: 1; }
+    50% { opacity: 1; }
+    to { left: 100%; opacity: 0; }
+}
+
+/* Estilos de la Sección de Juego - Interior de la Nave */
+#game-screen {
+    flex-direction: column;
+}
+
+.cockpit-interior {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: url('Imagenes/Interior_nave.jpg') no-repeat center center; /* Reemplaza con la imagen de tu cabina */
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Para llevar el panel de control abajo */
+}
+
+.control-panel {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px; /* Espacio desde la parte inferior */
+}
+
+.control-panel .problem-display {
+    margin-bottom: 15px;
+}
+
+.input-area input {
+    width: 80px;
+    text-align: center;
+}
+
+/* Pop-up de Ayuda */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: #1a2a4a;
+    border: 3px solid #5a91f8;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    text-align: center;
+}
+
+.popup-content img {
+    width: 150px;
+    margin-bottom: 20px;
+}
