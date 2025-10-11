@@ -89,7 +89,7 @@ async function loadNewProblem() {
         const response = await fetch(problemUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ difficulty: 'normal' })
+            body: JSON.stringify({ difficulty: 'fácil' })
         });
         const data = await response.json();
         currentProblem = data;
