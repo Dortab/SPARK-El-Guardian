@@ -89,7 +89,7 @@ async function loadNewProblem() {
         const response = await fetch(problemUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ difficulty: 'normal' })
+            body: JSON.stringify({ difficulty: 'fácil' })
         });
         const data = await response.json();
         currentProblem = data;
@@ -189,7 +189,11 @@ async function validateAnswer() {
             showSparkAlert('¡Respuesta Correcta!', '¡Bien hecho, cadete! Impulso de Velocidad activado.', 'correct', loadNewProblem);
             playSparkVoice('respuesta_correcta.mp3');
         } else {
-            showSparkAlert('Respuesta Incorrecta', 'Parece que hubo un error. Inténtalo de nuevo.', 'incorrect');
+            // --- ¡NUEVA MEJORA! ---
+            // Obtenemos la explicación que guardamos cuando se cargó el problema.
+            const explanation = currentProblem.explanation || '¡No te rindas, cadete! Revisa tus cálculos e inténtalo de nuevo.';
+            
+            showSparkAlert('Respuesta Incorrecta', explanation, 'incorrect');
             playSparkVoice('respuesta_incorrecta.mp3');
             submitAnswerBtn.disabled = false;
             submitAnswerBtn.textContent = 'Resolver';
