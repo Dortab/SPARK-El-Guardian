@@ -6,13 +6,9 @@ const numeratorInput = document.getElementById('numerator-input');
 const denominatorInput = document.getElementById('denominator-input');
 const answerInput = document.getElementById('answer-input'); 
 const submitAnswerBtn = document.getElementById('submit-answer-btn');
-const helpPopup = document.getElementById('help-popup');
-const closePopupBtn = document.getElementById('close-popup-btn');
-const helpTitle = document.getElementById('help-title');
-const helpExplanation = document.getElementById('help-explanation');
 const backgroundMusic = document.getElementById('background-music');
 
-// Referencias a elementos del nuevo popup de alerta
+// Referencias a elementos del popup de alerta
 const sparkAlertContainer = document.getElementById('spark-alert-container');
 const sparkAlertContent = sparkAlertContainer ? sparkAlertContainer.querySelector('.spark-alert-content') : null;
 const sparkAlertTitle = document.getElementById('spark-alert-title');
@@ -20,22 +16,12 @@ const sparkAlertMessage = document.getElementById('spark-alert-message');
 const sparkAlertCloseBtn = document.getElementById('spark-alert-close-btn');
 const sparkAlertIcon = sparkAlertContainer ? sparkAlertContainer.querySelector('.spark-alert-icon') : null;
 
-// --- FUNCIÓN PARA RESTRINGIR ENTRADA A SOLO NÚMEROS ---
-function restrictToNumbers(inputElement) {
-    if (inputElement) { // Revisa si el elemento existe en la página actual
-        inputElement.addEventListener('input', () => {
-            // Reemplaza cualquier caracter que NO sea un dígito (0-9) con nada
-            inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
-        });
-    }
-}
-
 let currentProblem = null;
 
 // URLs para las API de problemas
 const apiProblemUrls = {
     'mision-fracciones-page': 'https://n8n-spark2.onrender.com/webhook/191526ac-e83e-4bfd-b00c-1ab587e578a0',
-    'mision-sumas-page': 'https://n8n-spark2.onrender.com/webhook/ca413ffa-4bbd-4930-ac3c-c10ba851b674',
+    'mision-sumas-page': 'https://n8n-spark2.onrender.com/webhook/ca413ffa-4bbd-4ptcha0-ac3c-c10ba851b674',
     'mision-restas-page': 'https://n8n-spark2.onrender.com/webhook/df98ee16-c19c-43b1-b57e-4ccfe736c9d1',
     'mision-multiplicaciones-page': 'https://n8n-spark2.onrender.com/webhook/c443a9d8-7cc4-457b-9cca-4d9e6bb47dda',
     'mision-divisiones-page': 'https://n8n-spark2.onrender.com/webhook/9f503e35-5bdb-4997-99d4-fa1807b13536'
@@ -50,14 +36,6 @@ const apiValidationUrls = {
     'mision-divisiones-page': 'https://n8n-spark2.onrender.com/webhook/be06672c-bbc0-4180-b456-3fb7f9018232'
 };
 
-// Función para reproducir voz
-function playSparkVoice(audioFile) {
-    console.log(`Reproduciendo audio: ${audioFile}`);
-    const audio = new Audio(`audios/${audioFile}`);
-    audio.play().catch(error => {
-        console.error(`Error al intentar reproducir el audio ${audioFile}:`, error);
-    });
-}
 
 // Lógica de inicio de viaje para las misiones
 const startMissionJourney = () => {
@@ -65,23 +43,25 @@ const startMissionJourney = () => {
     const gameScreen = document.getElementById('game-screen');
 
     if (travelScreen && gameScreen) {
-        travelScreen.classList.remove('hidden');
-        travelScreen.classList.add('active');
-        gameScreen.classList.remove('active');
-        gameScreen.classList.add('hidden');
-
         setTimeout(async () => {
             travelScreen.classList.remove('active');
             travelScreen.classList.add('hidden');
             gameScreen.classList.remove('hidden');
             gameScreen.classList.add('active');
             await loadNewProblem();
-        }, 10000);
+        }, 10000); 
     }
 }
 
-// CÓDIGO PARA CARGAR UN NUEVO PROBLEMA
+// CÓDIGO MEJORADO PARA CARGAR UN NUEVO PROBLEMA (ALTERNANDO)
 async function loadNewProblem() {
+    // --- Lógica para alternar el tipo de problema ---
+    let problemCounter = parseInt(sessionStorage.getItem('problemCounter') || '0');
+    const problemType = problemCounter % 2 === 0 ? 'numeric' : 'word'; // Si es par, numérico; si es impar, de palabras.
+    problemCounter++;
+    sessionStorage.setItem('problemCounter', problemCounter.toString());
+    // --- Fin de la lógica de alternancia ---
+
     const missionType = document.body.id;
     const problemUrl = apiProblemUrls[missionType];
 
@@ -89,12 +69,15 @@ async function loadNewProblem() {
         const response = await fetch(problemUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ difficulty: 'fácil' })
+            body: JSON.stringify({
+                difficulty: 'easy',
+                problem_type: problemType // Enviamos el tipo de problema
+            })
         });
         const data = await response.json();
         currentProblem = data;
         
-        problemText.textContent = 'Misión: Resuelve la siguiente operación para avanzar.';
+        problemText.textContent = 'Misión: Resuelve el siguiente desafío para avanzar.';
         problemMath.innerHTML = `<span>${currentProblem.problem}</span>`;
         
         if (missionType === 'mision-fracciones-page') {
@@ -104,10 +87,9 @@ async function loadNewProblem() {
             if (answerInput) answerInput.value = '';
         }
         
-        playSparkVoice('audios/nueva_mision.mp3');
     } catch (error) {
         console.error('Error al cargar el problema:', error);
-        problemText.textContent = 'Hubo un error. Inténtalo de nuevo.';
+        problemText.textContent = 'Hubo un error al cargar el problema. Inténtalo de nuevo.';
     } finally {
         if (submitAnswerBtn) {
             submitAnswerBtn.disabled = false;
@@ -116,49 +98,12 @@ async function loadNewProblem() {
     }
 }
 
-// --- FUNCIÓN PARA MOSTRAR LA ALERTA PERSONALIZADA (AHORA CON CALLBACK) ---
-let alertCallback = null;
-
-function showSparkAlert(title, message, type, callback = null) {
-    if (!sparkAlertContainer || !sparkAlertContent || !sparkAlertTitle || !sparkAlertMessage || !sparkAlertIcon) return;
-
-    sparkAlertTitle.textContent = title;
-    sparkAlertMessage.textContent = message;
-
-    alertCallback = callback;
-
-    sparkAlertContent.classList.remove('correct', 'incorrect');
-    sparkAlertIcon.innerHTML = '';
-
-    if (type === 'correct') {
-        sparkAlertContent.classList.add('correct');
-        sparkAlertIcon.innerHTML = '&#10003;';
-    } else if (type === 'incorrect') {
-        sparkAlertContent.classList.add('incorrect');
-        sparkAlertIcon.innerHTML = '&#10007;';
-    }
-
-    sparkAlertContainer.classList.add('active');
-}
-
-if (sparkAlertCloseBtn) {
-    sparkAlertCloseBtn.addEventListener('click', () => {
-        sparkAlertContainer.classList.remove('active');
-        if (alertCallback) {
-            alertCallback();
-            alertCallback = null;
-        }
-    });
-}
-
-// CÓDIGO PARA VALIDAR LA RESPUESTA DEL USUARIO
-if (submitAnswerBtn) {
-    submitAnswerBtn.addEventListener('click', validateAnswer);
-}
-
+// CÓDIGO PARA VALIDAR LA RESPUESTA
 async function validateAnswer() {
-    submitAnswerBtn.disabled = true;
-    submitAnswerBtn.textContent = 'Validando...';
+    if (submitAnswerBtn) {
+        submitAnswerBtn.disabled = true;
+        submitAnswerBtn.textContent = 'Validando...';
+    }
 
     const missionType = document.body.id;
     let userAnswer;
@@ -186,63 +131,66 @@ async function validateAnswer() {
         const data = await response.json();
 
         if (data.result === 'correcta') {
-            showSparkAlert('¡Respuesta Correcta!', '¡Bien hecho, cadete! Impulso de Velocidad activado.', 'correct', loadNewProblem);
-            playSparkVoice('respuesta_correcta.mp3');
+            showSparkAlert('¡Respuesta Correcta!', '¡Bien hecho, cadete!', 'correct', loadNewProblem);
         } else {
-            // --- ¡NUEVA MEJORA! ---
-            // Obtenemos la explicación que guardamos cuando se cargó el problema.
-            const explanation = currentProblem.explanation || '¡No te rindas, cadete! Revisa tus cálculos e inténtalo de nuevo.';
-            
+            const explanation = currentProblem.explanation || '¡No te rindas! Revisa tus cálculos e inténtalo de nuevo.';
             showSparkAlert('Respuesta Incorrecta', explanation, 'incorrect');
-            playSparkVoice('respuesta_incorrecta.mp3');
-            submitAnswerBtn.disabled = false;
-            submitAnswerBtn.textContent = 'Resolver';
+            if (submitAnswerBtn) {
+                submitAnswerBtn.disabled = false;
+                submitAnswerBtn.textContent = 'Resolver';
+            }
         }
     } catch (error) {
         console.error('Error al validar la respuesta:', error);
-        showSparkAlert('Error de Conexión', 'Hubo un error al validar tu respuesta. Revisa tu conexión.', 'incorrect');
-        submitAnswerBtn.disabled = false;
-        submitAnswerBtn.textContent = 'Resolver';
+        showSparkAlert('Error de Conexión', 'Hubo un error al validar. Revisa tu conexión.', 'incorrect');
+        if (submitAnswerBtn) {
+            submitAnswerBtn.disabled = false;
+            submitAnswerBtn.textContent = 'Resolver';
+        }
     }
 }
 
-// Lógica al cargar la página del menú o misión
+// Lógica para mostrar la alerta personalizada
+let alertCallback = null;
+function showSparkAlert(title, message, type, callback = null) {
+    if (!sparkAlertContainer) return;
+    sparkAlertTitle.textContent = title;
+    sparkAlertMessage.textContent = message;
+    alertCallback = callback;
+    sparkAlertContent.className = 'spark-alert-content ' + type;
+    sparkAlertContainer.classList.add('active');
+}
+
+// Lógica de los eventos
 document.addEventListener('DOMContentLoaded', () => {
-    restrictToNumbers(numeratorInput);
-    restrictToNumbers(denominatorInput);
-    restrictToNumbers(answerInput);
-    
-    const isWelcomePage = document.getElementById('home-screen');
+    if (submitAnswerBtn) {
+        submitAnswerBtn.addEventListener('click', validateAnswer);
+    }
+    if (sparkAlertCloseBtn) {
+        sparkAlertCloseBtn.addEventListener('click', () => {
+            sparkAlertContainer.classList.remove('active');
+            if (alertCallback) {
+                alertCallback();
+                alertCallback = null;
+            }
+        });
+    }
+
     const isMenuPage = document.getElementById('menu-screen');
     const isMissionPage = document.body.id.includes('mision-');
 
-    if (isWelcomePage) {
-        // La lógica de bienvenida ya está en index.js
-    } else if (isMenuPage) {
+    if (isMenuPage) {
         const storedName = localStorage.getItem('userName');
         if (!storedName) {
             window.location.href = 'index.html';
         } else {
-            if (menuMessage) {
-                menuMessage.textContent = `¡Excelente, ${storedName}! Elige tu misión.`;
-            }
+            menuMessage.textContent = `¡Excelente, ${storedName}! Elige tu misión.`;
         }
-
-        const endMissionBtn = document.getElementById('end-mission-btn');
-        if (endMissionBtn) {
-            endMissionBtn.addEventListener('click', () => {
-                localStorage.removeItem('userName');
-                window.location.href = 'index.html';
-            });
-        }
-
+        document.getElementById('end-mission-btn').addEventListener('click', () => {
+            localStorage.removeItem('userName');
+            window.location.href = 'index.html';
+        });
     } else if (isMissionPage) {
         startMissionJourney();
-    }
-    
-    if (backgroundMusic) {
-        backgroundMusic.play().catch(error => {
-            console.error("Error al reproducir la música de fondo:", error);
-        });
     }
 });
