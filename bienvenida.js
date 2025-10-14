@@ -21,7 +21,7 @@ let currentProblem = null;
 // URLs para las API de problemas
 const apiProblemUrls = {
     'mision-fracciones-page': 'https://n8n-spark2.onrender.com/webhook/191526ac-e83e-4bfd-b00c-1ab587e578a0',
-    'mision-sumas-page': 'https://n8n-spark2.onrender.com/webhook/ca413ffa-4bbd-4ptcha0-ac3c-c10ba851b674',
+    'mision-sumas-page': 'https://n8n-spark2.onrender.com/webhook/ca413ffa-4bbd-4930-ac3c-c10ba851b674',
     'mision-restas-page': 'https://n8n-spark2.onrender.com/webhook/df98ee16-c19c-43b1-b57e-4ccfe736c9d1',
     'mision-multiplicaciones-page': 'https://n8n-spark2.onrender.com/webhook/c443a9d8-7cc4-457b-9cca-4d9e6bb47dda',
     'mision-divisiones-page': 'https://n8n-spark2.onrender.com/webhook/9f503e35-5bdb-4997-99d4-fa1807b13536'
